@@ -2,7 +2,7 @@
   "name": "messaging_server",
   "version": "0.0.0",
   "description": "A messaging server for lil'flo",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Rehab-Robotics-Lab/LilFloSystem",
   "dependencies": {
+    "express": "^4.15.3",
+    "redis": "^2.7.1",
     "socket.io": "^2.0.3"
   }
 }
