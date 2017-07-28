@@ -56,6 +56,7 @@ io.on('connection', function(client){
 
     client.on('disconnect',function(){
         console.log('client '+client.id+' disconnected');
+        //TODO: remove stuff from lists.
     });
 });
 
