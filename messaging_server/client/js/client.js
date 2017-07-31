@@ -18,12 +18,16 @@ var name = prompt('What is your username?');
 
 socket.emit('info', 'user', name);
 
-socket.on('messages', function (data) {
-    alert(data);
+socket.on('message', function (data) {
+    console.log(data);
 });
 
 socket.on('new_robot', function (name) {
-    alert('new robot connected: ' + name);
+    console.log('new robot connected: ' + name);
+})
+
+socket.on('disconnected_robot', function (name) {
+    console.log('robot disconnected: ' + name);
 })
 
 socket.emit('join', robot);

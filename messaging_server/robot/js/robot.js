@@ -3,8 +3,8 @@
 var name = 'flo1';
 socket.emit('info', 'robot', name);
 
-socket.on('messages', function (data) {
-    alert(data);
+socket.on('message', function (data) {
+    console.log(data);
 });
 
 var remoteVideo = document.getElementById('remoteVideo');
