@@ -11,12 +11,12 @@ var clients = {};
 
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/global/html/index.html');
-    console.log('request on home');
+    // console.log('request on home');
 });
 
 app.get('/*',function(req,res){
     var filename = __dirname + req.path;
-    console.log("asked for: "+filename);
+    // console.log("asked for: "+filename);
     fs.stat(filename, function(err, stat){
         if(err===null){
             res.sendFile(filename);
@@ -67,6 +67,9 @@ io.on('connection', function(client){
 
     client.on('disconnect',function(){
         console.log('client '+client.id+' disconnected');
+        if(client.type === 'robot'){delete robots[client.name];}
+        else if(client.type === 'client'){delete clients[client.name];}
+
         //TODO: remove stuff from lists.
     });
 });

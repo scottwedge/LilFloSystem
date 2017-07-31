@@ -1,6 +1,5 @@
 "use strict";
 
-var socket = io.connect('http://localhost:8080');
 var name = 'flo1';
 socket.emit('info', 'robot', name);
 
