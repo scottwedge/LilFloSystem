@@ -14,8 +14,17 @@ socket.on('new_robot',function(name){
     alert('new robot connected: '+name);
 })
 
+//setup buttons
+callButton.disabled = true;
+hangupButton.disabled = true;
+startButton.onclick = start;
+callButton.onclick = call;
+hangupButton.onclick = hangup;
+
 
 /////// WebRTC Stuff
+
+///////////////////// Video on screen
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -23,14 +32,17 @@ var constraints = {
   audio: false,
   video: true
 };
-var video = document.querySelector('video');
+
+var local_video = document.getElementById('local_video');
+var remote_video = document.getElementById('remote_video');
+
 
 function successCallback(stream) {
   window.stream = stream; // stream available to console
   if (window.URL) {
-    video.src = window.URL.createObjectURL(stream);
+    local_video.src = window.URL.createObjectURL(stream);
   } else {
-    video.src = stream;
+    local_video.src = stream;
   }
 }
 

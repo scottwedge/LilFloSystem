@@ -10,20 +10,16 @@ var robots = {};
 var clients = {};
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname + '/client/html/index.html');
-});
-
-app.get('/robot',function(req,res){
-    res.sendFile(__dirname + '/client/html/robot.html');
+    res.sendFile(__dirname + '/global/html/index.html');
 });
 
 app.get('/*',function(req,res){
-    var filename = __dirname + '/client/'+req.path;
+    var filename = __dirname + req.path;
     fs.stat(filename, function(err, stat){
         if(err===null){
             res.sendFile(filename);
         }else{
-            res.sendFile(__dirname + '/client/html/404.html');
+            res.sendFile(__dirname + '/global/html/404.html');
         }
     });
     
