@@ -11,10 +11,12 @@ var clients = {};
 
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/global/html/index.html');
+    console.log('request on home');
 });
 
 app.get('/*',function(req,res){
     var filename = __dirname + req.path;
+    console.log("asked for: "+filename);
     fs.stat(filename, function(err, stat){
         if(err===null){
             res.sendFile(filename);
@@ -39,6 +41,8 @@ io.on('connection', function(client){
             }else{
                 robots[name] = client;
                 client.broadcast.emit('new_robot',name);
+                client.join(name);
+                client.room = name;
             }
         }else if(type === 'client'){
             if(clients.hasOwnProperty(name)){
@@ -48,6 +52,17 @@ io.on('connection', function(client){
             }
         }
         console.log('client '+client.id+' is a '+client.type+' named: '+name);
+    });
+
+    client.on('join',function(robot){
+        ///expect that a clinician is calling this to connect to a robot
+        client.join(robot);
+        client.room = robot;
+        client.emit('joined',robot);
+    });
+
+    client.on('message',function(message){
+        client.broadcast.to(client.room).emit('message',message);
     })
 
     client.on('disconnect',function(){

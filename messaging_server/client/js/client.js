@@ -1,53 +1,61 @@
 "use strict";
 
-var socket = io.connect('http://localhost:8080');
 
-var name = prompt('What is your username?');
-
-socket.emit('info','user',name);
-
-socket.on('messages', function(data){
-    alert(data);
-});
-
-socket.on('new_robot',function(name){
-    alert('new robot connected: '+name);
-})
 
 //setup buttons
 callButton.disabled = true;
 hangupButton.disabled = true;
 startButton.onclick = start;
-callButton.onclick = call;
-hangupButton.onclick = hangup;
+// callButton.onclick = call;
+// hangupButton.onclick = hangup;
 
 
 /////// WebRTC Stuff
 
+
+var robot = 'flo1'; // TODO: make this selection based
+var name = prompt('What is your username?');
+
+socket.emit('info', 'user', name);
+
+socket.on('messages', function (data) {
+    alert(data);
+});
+
+socket.on('new_robot', function (name) {
+    alert('new robot connected: ' + name);
+})
+
+socket.emit('join', robot);
+socket.on('joined', function (room) {
+    console.log('joined room ' + room);
+    isChannelReady = true;
+})
+
 ///////////////////// Video on screen
-navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-var constraints = {
-  audio: false,
-  video: true
-};
+var localVideo = document.getElementById('localVideo');
+var remoteVideo = document.getElementById('remoteVideo');
+trace('got video panels');
 
-var local_video = document.getElementById('local_video');
-var remote_video = document.getElementById('remote_video');
-
-
-function successCallback(stream) {
-  window.stream = stream; // stream available to console
-  if (window.URL) {
-    local_video.src = window.URL.createObjectURL(stream);
-  } else {
-    local_video.src = stream;
-  }
+function gotStream(stream) {
+    trace('Received local stream');
+    localVideo.srcObject = stream;
+    localStream = stream;
+    callButton.disabled = false;
+    startButton.disabled = true;
 }
 
-function errorCallback(error) {
-  console.log('navigator.getUserMedia error: ', error);
+function start() {
+    if (readyToConnect) {
+        trace('Requesting local stream');
+        navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: true
+        })
+            .then(gotStream)
+            .catch(function (e) {
+                alert('getUserMedia() error: ' + e.name);
+            });
+    }
 }
-
-navigator.getUserMedia(constraints, successCallback, errorCallback);

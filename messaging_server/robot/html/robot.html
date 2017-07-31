@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <!-- <script src="script.js"></script> -->
-  </head>
-  <body>
-      <p>hi robot</p>
-    <!-- page content -->
+    <link rel="stylesheet" type="text/css" href="/robot/css/style.css">
+</head>
+
+<body>
+    <p>hi robot</p>
+    <video id="remoteVideo" autoplay></video>
+
+    <script src="/node_modules/webrtc-adapter/out/adapter.js"></script>
+    <script type="text/javascript" src="/global/js/logging.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="../js/robot_socket.js"></script>
-  </body>
+    <script type="text/javascript" src="/robot/js/robot.js"></script>
+</body>
+
 </html>
