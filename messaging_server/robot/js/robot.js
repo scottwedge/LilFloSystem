@@ -4,7 +4,7 @@ var name = 'flo1';
 socket.emit('info', 'robot', name);
 
 socket.on('message', function (data) {
-    console.log(data);
+    console.log('received message: ' + data);
 });
 
 var remoteVideo = document.getElementById('remoteVideo');

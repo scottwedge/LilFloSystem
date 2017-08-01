@@ -19,7 +19,7 @@ var name = prompt('What is your username?');
 socket.emit('info', 'user', name);
 
 socket.on('message', function (data) {
-    console.log(data);
+    console.log('received message: ' + data);
 });
 
 socket.on('new_robot', function (name) {

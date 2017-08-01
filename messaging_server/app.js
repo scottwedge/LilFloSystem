@@ -4,7 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 
-var cur_id = 0;
+// var cur_id = 0;
 
 var robots = {};
 var clients = {};
@@ -28,8 +28,8 @@ app.get('/*', function (req, res) {
 });
 
 io.on('connection', function (client) {
-    client.id = cur_id;
-    cur_id++;
+    // client.id = cur_id;
+    // cur_id++;
 
     client.on('info', function (type, name) {
         client.type = type;
@@ -63,12 +63,12 @@ io.on('connection', function (client) {
         ///expect that a clinician is calling this to connect to a robot
         client.join(robot);
         client.room = robot;
-        client.emit('joined', robot);
+        client.emit('joined', client.rooms);
     });
 
     client.on('message', function (message) {
-        console.log('relaying message: ' + message);
-        client.broadcast.to(client.room).emit('message', message);
+        console.log('relaying message: ' + message + ' in room: \''+client.room+'\' which contains: ');
+        client.to(client.room).emit('message', message);
     })
 
     client.on('disconnect', function () {
