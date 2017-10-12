@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
+var port = 8081;
 
 // var cur_id = 0;
 
@@ -50,8 +51,8 @@ io.on('connection', function (client) {
             } else {
                 clients[name] = client;
             }
-            for(robot in robots){
-                if(robots.hasOwnProperty(robot)){
+            for (robot in robots) {
+                if (robots.hasOwnProperty(robot)) {
                     client.emit('new_robot', robot);
                 }
             }
@@ -67,7 +68,7 @@ io.on('connection', function (client) {
     });
 
     client.on('message', function (message) {
-        console.log('relaying message: ' + message + ' in room: \''+client.room+'\' which contains: ');
+        console.log('relaying message: \'' + message + '\' in room: \'' + client.room + '\'');
         client.to(client.room).emit('message', message);
     })
 
@@ -82,5 +83,10 @@ io.on('connection', function (client) {
     });
 });
 
-server.listen(8080);
-console.log('listening on 8080');
+server.listen(port, '0.0.0.0', function (err) {
+    if (err) {
+        console.log('error: ' + err);
+    } else {
+        console.log('listening on '+port);
+    }
+});

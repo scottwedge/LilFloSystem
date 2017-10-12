@@ -6,7 +6,7 @@
 callButton.disabled = true;
 hangupButton.disabled = true;
 startButton.onclick = start;
-// callButton.onclick = call;
+callButton.onclick = call;
 // hangupButton.onclick = hangup;
 
 
@@ -38,9 +38,7 @@ socket.on('joined', function (room) {
 
 ///////////////////// Video on screen
 
-var localVideo = document.getElementById('localVideo');
-var remoteVideo = document.getElementById('remoteVideo');
-trace('got video panels');
+
 
 function gotStream(stream) {
     trace('Received local stream');
@@ -51,7 +49,6 @@ function gotStream(stream) {
 }
 
 function start() {
-    if (readyToConnect) {
         trace('Requesting local stream');
         navigator.mediaDevices.getUserMedia({
             audio: false,
@@ -61,5 +58,31 @@ function start() {
             .catch(function (e) {
                 alert('getUserMedia() error: ' + e.name);
             });
-    }
 }
+
+// might need to setup a turn server here
+
+function call(){
+    createPeerConnection();
+    pc.addStream(localStream);
+    pc.createOffer(setLocalAndSendMessage, handleCreateOfferError)
+}
+
+function handleIceCandidate(event) {
+  console.log('icecandidate event: ', event);
+  if (event.candidate) {
+    sendMessage({
+      type: 'candidate',
+      label: event.candidate.sdpMLineIndex,
+      id: event.candidate.sdpMid,
+      candidate: event.candidate.candidate
+    });
+  } else {
+    console.log('End of candidates.');
+  }
+}
+
+
+
+
+
