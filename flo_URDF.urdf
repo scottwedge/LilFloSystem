@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<robot name="Lil_Flo">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="2 1.5 .75"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="left_arm1">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 .30 0"/>
+     </visual>
+  </link>
+
+  <joint name="base_to_left_arm" type="revolute">
+    <parent link="base_link"/>
+    <child link="left_arm1"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="-.85 .75 0"/>
+  </joint>
+
+  <link name="left_arm2">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 .30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] left1_to_left2 " type="revolute">
+    <parent link="left_arm1"/>
+    <child link="left_arm2"/>
+         <axis xyz="0 0 1 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 .6 0"/>
+  </joint>
+
+  <link name="left_arm3">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 .30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] left2_to_left3 " type="revolute">
+    <parent link="left_arm2"/>
+    <child link="left_arm3"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 .6 0"/>
+  </joint>
+
+  <link name="left_arm4">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 .30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] left3_to_left4 " type="revolute">
+    <parent link="left_arm3"/>
+    <child link="left_arm4"/>
+         <axis xyz="0 0 1 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 .6 0"/>
+  </joint>
+
+ <link name="right_arm1">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 -.30 0"/>
+     </visual>
+  </link>
+
+  <joint name="base_to_right_arm" type="revolute">
+    <parent link="base_link"/>
+    <child link="right_arm1"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="-.85 -.75 0"/>
+  </joint>
+
+ <link name="right_arm2">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 -.30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] right1_to_right2" type="revolute">
+    <parent link="right_arm1"/>
+    <child link="right_arm2"/>
+         <axis xyz="0 0 1"/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 -.6 0"/>
+  </joint>
+
+
+ <link name="right_arm3">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 -.30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] right2_to_right3" type="revolute">
+    <parent link="right_arm2"/>
+    <child link="right_arm3"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 -.6 0"/>
+  </joint>
+
+
+ <link name="right_arm4">
+    <visual>
+      <geometry>
+        <box size="0.3 0.6 0.2"/>
+      </geometry>
+        <origin xyz="0 -.30 0"/>
+     </visual>
+  </link>
+
+  <joint name="[ARM] right3_to_right4" type="revolute">
+    <parent link="right_arm3"/>
+    <child link="right_arm4"/>
+         <axis xyz="0 0 1 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0 -.6 0"/>
+  </joint>
+
+  <link name="left_leg1">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+	<origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="base_to_left_leg" type="revolute">
+    <parent link="base_link"/>
+    <child link="left_leg1"/>
+         <axis xyz="1 0 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="1 .6 0"/>
+  </joint>
+
+  <link name="left_leg2">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="[LEG] left1_to_left2" type="revolute">
+    <parent link="left_leg1"/>
+    <child link="left_leg2"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+	<origin xyz=".6 0 0"/>
+  </joint>
+
+  <link name="left_leg3">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="[LEG] left2_to__left3" type="revolute">
+    <parent link="left_leg2"/>
+    <child link="left_leg3"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz=".6 0 0"/>
+  </joint>
+
+  <link name="left_leg4">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="[LEG] left3_to_left4" type="revolute">
+    <parent link="left_leg3"/>
+    <child link="left_leg4"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz=".6 0 0"/>
+  </joint>
+
+  <link name="right_leg1">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="base_to_right_leg" type="revolute">
+    <parent link="base_link"/>
+    <child link="right_leg1"/>
+         <axis xyz="1 0 0 "/>
+    <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="1 -.6 0"/>
+  </joint>
+
+  <link name="right_leg2">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="[LEG] right1_to_right2" type="revolute">
+    <parent link="right_leg1"/>
+    <child link="right_leg2"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0.6 0 0"/>
+  </joint>
+
+  <link name="right_leg3">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="right2_to_right3" type="revolute">
+    <parent link="right_leg2"/>
+    <child link="right_leg3"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0.6 0 0"/>
+  </joint>
+
+  <link name="right_leg4">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.2"/>
+      </geometry>
+        <origin xyz=".3 0 0"/>
+     </visual>
+  </link>
+
+  <joint name="[LEG] right3_to_right4" type="revolute">
+    <parent link="right_leg3"/>
+    <child link="right_leg4"/>
+         <axis xyz="0 1 0 "/>
+         <limit effort="1000" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin xyz="0.6 0 0"/>
+  </joint>
+
+</robot>
+
