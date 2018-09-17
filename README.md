@@ -11,7 +11,7 @@ This is going to be the master repository for all of the Lil'Flo remote control,
 1. Setup Linux, Either Ubuntu or Lubuntu
     1. Make sure to connect to a network and update everything
     2. Make sure to set the system to login automatically
-1. Clone this repo somewhere, like `~/Documents/git/LilFloSystem`
+1. Make an empty floder in `~/Documents/LilFloSystem` : `mkdir ~/Documents/LilFloSystem`
 2. [Install ROS Kinetic](http://wiki.ros.org/kinetic/Installation)
     1. Be sure to setup ROS to load in your bashrc by adding: `source ~/catkin_ws/devel/setup.bash`
 3.  Setup the network in the bashrc. It is likely that you will be on a network that changes your IP address frequently, so that needs to be handled. 
@@ -21,7 +21,7 @@ This is going to be the master repository for all of the Lil'Flo remote control,
     4. Set the ROS Master to be the local machine in the bashrc: `export ROS_MASTER_URI=http://localhost:11311`
 3. Create a catkin workspace, ex: `mkdir ~/catkin_ws/src -r` #TODO: actually try that command
     1. Load the catkin ws in your bashrc by adding: `~/catkin_ws/devel/setup.bash`
-4. Link the repo into the catkin ws, ex: `cd ~/catkin_ws/src && ln -s ~/Documents/git/LilFloSystem`
+4. Link the folder created before into the catkin ws, ex: `cd ~/catkin_ws/src && ln -s ~/Documents/LilFloSystem`
     - Why do we use links? It allows us to easily remove the code from the catkin workspace
        without removing it from our computer. We simply delete the link. 
 5. Make the code: `cd ~/catkin_ws && catkin_make`
@@ -42,8 +42,8 @@ This is going to be the master repository for all of the Lil'Flo remote control,
 ### Lighting Control Teensy
 
 ### Dev Computer
-If you would like to have a separate development computer, which would make a
-lot of sense, you can mostly follow the instructions for the NUC from above. 
+You should have a separate development computer. You can mostly follow the 
+instructions for the NUC from above. 
 However, you will need to change the ROS Master URI to point to the robot which 
 you want to work with. Also, note that when loading ROS, you change things like
 your Python path, which means you probably only want to load the ROS search tree
@@ -84,3 +84,14 @@ find that this needs to be altered for your use case.
 
 If you would like to take advantage of the rmate connection, you can use textmate
 or VS Code ([instructions](http://michaelsobrepera.com/guides/vscode.html))
+
+## Developing
+In order to develop on the robot, you will do all of your coding, git work, etc 
+on your dev comptuer. You will run the `pushToRobot.sh` script from your dev
+computer to load your updates on to the robot. This allows us to keep the robot 
+clean from user specific details. 
+
+To test your code, you can SSH into the robot to run things. It is recommende
+that you start all of your code in tmux to allow it to run even if your network 
+connection drops. You can find instructions for tmux at the 
+[tmux reference](https://tmuxcheatsheet.com/)
