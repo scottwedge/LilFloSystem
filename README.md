@@ -32,6 +32,7 @@ This is going to be the master repository for all of the Lil'Flo remote control,
     1. Load the catkin ws in your bashrc by adding: `~/catkin_ws/devel/setup.bash`
 5. Enable SSH: 
     1. `sudo apt-get install openssh-server -y`
+6. Install the other dependencies
 
 
 #### Install Various Dependencies:
