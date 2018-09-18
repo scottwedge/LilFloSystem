@@ -101,11 +101,13 @@ or VS Code ([instructions](http://michaelsobrepera.com/guides/vscode.html))
 ## Developing
 In order to develop on the robot, you will do all of your coding, git work, etc 
 on your dev comptuer. You then have a few options for getting your code onto the 
-robot. The recomended approach is to use lsycnd which does live file updatingYou will run the `pushToRobot.sh` script from your dev
-computer to load your updates on to the robot. This allows us to keep the robot 
+robot. The recomended approach is to use lsycnd which does live file updating.
+You will need to make a copy of the file `syncConfig.lua` which should be named
+`mySyncConfig.lua`. You can then use it by running `lsyncd mySyncConfig.lua`. 
+You can also use rsync or SCP. This allows us to keep the robot 
 clean from user specific details. 
 
-To test your code, you can SSH into the robot to run things. It is recommende
+To test your code, you can SSH into the robot to run things. It is recommended
 that you start all of your code in tmux to allow it to run even if your network 
 connection drops. You can find instructions for tmux at the 
 [tmux reference](https://tmuxcheatsheet.com/). When you change code, remember
