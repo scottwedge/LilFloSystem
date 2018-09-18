@@ -8,29 +8,35 @@ This is going to be the master repository for all of the Lil'Flo remote control,
 ## Setup
 
 ### NUC
-1. Setup Linux, Either Ubuntu or Lubuntu
-    1. Make sure to connect to a network and update everything
-    2. Make sure to set the system to login automatically
-1. Make an empty floder in `~/Documents/LilFloSystem` : `mkdir ~/Documents/LilFloSystem`
+1. Setup Ubuntu 16
+    0. Make the computer name `flo-nuc` username `flo` and password `flodev#01`
+    1. Make sure to connect to a network and update everything: 
+        `sudo apt update -y && sudo apt upgrade -y`
+    2. Make sure to set the system to login automatically #TODO is this really 
+       necessary?
+
 2. [Install ROS Kinetic](http://wiki.ros.org/kinetic/Installation)
-    1. Be sure to setup ROS to load in your bashrc by adding: `source ~/catkin_ws/devel/setup.bash`
-3.  Setup the network in the bashrc. It is likely that you will be on a network that changes your IP address frequently, so that needs to be handled. 
+    1. Be sure to setup ROS to load in your bashrc by adding: 
+       `source ~/catkin_ws/devel/setup.bash` to your bashrc
+3.  Setup the network in the bashrc. It is likely that you will be on a network 
+    that changes your IP address frequently, so that needs to be handled. 
     1. Type `ifconfig` and get the name of the wifi adapter
-    2. Add this line to `~/.bashrc`: `function ifip { /sbin/ifconfig $1 | grep "inet addr" | awk -F: '{print $2}' |awk '{print $1}'; }`
-    3. Setup the IP address in the bashrc: ``export ROS_IP=`ifip <name of wifi adapter, source /opt/ros/kinetic/setup.bashex: wlp3s0>` ``
-    4. Set the ROS Master to be the local machine in the bashrc: `export ROS_MASTER_URI=http://localhost:11311`
-3. Create a catkin workspace, ex: `mkdir ~/catkin_ws/src -r` #TODO: actually try that command
+    2. Add this line to `~/.bashrc`: 
+       `function ifip { /sbin/ifconfig $1 | grep "inet addr" | awk -F: '{print $2}' |awk '{print $1}'; }`
+    3. Setup the IP address in the bashrc: 
+       `` export ROS_IP=`ifip <name of wifi adapter, ex: wlp3s0>` ``
+    4. Set the ROS Master to be the local machine in the bashrc: 
+       `export ROS_MASTER_URI=http://localhost:11311`
+3. Create a catkin workspace: `mkdir ~/catkin_ws/src -r` #TODO: actually try that command
     1. Load the catkin ws in your bashrc by adding: `~/catkin_ws/devel/setup.bash`
-4. Link the folder created before into the catkin ws, ex: `cd ~/catkin_ws/src && ln -s ~/Documents/LilFloSystem`
-    - Why do we use links? It allows us to easily remove the code from the catkin workspace
-       without removing it from our computer. We simply delete the link. 
-5. Make the code: `cd ~/catkin_ws && catkin_make`
+5. Enable SSH: 
+    1. `sudo apt-get install openssh-server -y`
+
 
 #### Install Various Dependencies:
 1. pip install pyserial --user
 
 #### Optional Things to Make Life Easier
-1. Enable SSH, so you can actually connect to the robot
 2. Enable VNC, so that you can see what is on the robot
 3. Install RMATE to allow you to edit code over SSH from a remote text editor:
     ```bash
@@ -85,13 +91,22 @@ find that this needs to be altered for your use case.
 If you would like to take advantage of the rmate connection, you can use textmate
 or VS Code ([instructions](http://michaelsobrepera.com/guides/vscode.html))
 
+#### Setup for easy SSH connection:
+1. Generate SSH keys on your development computer: `ssh-keygen -t rsa` the defaults are fine
+2. Make a ssh key folder on the robot: `ssh flo@192.168.1.10 mkdir -p .ssh` 
+3. Move the keyfile from the dev computer to the robot: 
+   `` cat ~/.ssh/id_rsa.pub | ssh flo@192.168.1.10 'cat >> .ssh/authorized_keys' ``
+
+
 ## Developing
 In order to develop on the robot, you will do all of your coding, git work, etc 
-on your dev comptuer. You will run the `pushToRobot.sh` script from your dev
+on your dev comptuer. You then have a few options for getting your code onto the 
+robot. The recomended approach is to use lsycnd which does live file updatingYou will run the `pushToRobot.sh` script from your dev
 computer to load your updates on to the robot. This allows us to keep the robot 
 clean from user specific details. 
 
 To test your code, you can SSH into the robot to run things. It is recommende
 that you start all of your code in tmux to allow it to run even if your network 
 connection drops. You can find instructions for tmux at the 
-[tmux reference](https://tmuxcheatsheet.com/)
+[tmux reference](https://tmuxcheatsheet.com/). When you change code, remember
+to run `cd ~/catkin_ws && catkin_make` on the robot machine.  
