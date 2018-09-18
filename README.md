@@ -4,6 +4,8 @@ This is going to be the master repository for all of the Lil'Flo remote control,
 ## Dependencies
 - ROS
 - pyserial 
+- [librealsense - including developer packages](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
+- [ROS Realsense wrapper](https://github.com/intel-ros/realsense)
 
 ## Setup
 
@@ -14,7 +16,6 @@ This is going to be the master repository for all of the Lil'Flo remote control,
         `sudo apt update -y && sudo apt upgrade -y`
     2. Make sure to set the system to login automatically #TODO is this really 
        necessary?
-
 2. [Install ROS Kinetic](http://wiki.ros.org/kinetic/Installation)
     1. Be sure to setup ROS to load in your bashrc by adding: 
        `source ~/catkin_ws/devel/setup.bash` to your bashrc
