@@ -144,3 +144,7 @@ You can also test with the more standardized rgbd style topics by running
 `roslaunch realsense2_camera rs_rgbd.launch` and looking at the results in RViZ
 where you can add a point cloud. Be sure to set the "Fixed Frame" to be the
 camera link.
+
+If you want to tinker with frame sizes and rates, take a look at the supported 
+profiles by running `rs-enumerate-devices`. This is also a great way to check 
+whether the device is actually recognized as being USB 3.0
