@@ -147,4 +147,15 @@ camera link.
 
 If you want to tinker with frame sizes and rates, take a look at the supported 
 profiles by running `rs-enumerate-devices`. This is also a great way to check 
-whether the device is actually recognized as being USB 3.0
+whether the device is actually recognized as being USB 3.0. If you find that it 
+is shown as a USB 2 device, unplug the camera and plug it back in. There is a 
+known issue with the stock cable. TODO: replace cable
+TODO: implement unplug replug in code: https://unix.stackexchange.com/questions/234581/disconnect-and-reconnect-usb-port-via-cli
+
+## Collecting Data
+### Simple video / depth data
+To just collect video and depth data you should test the camera as shwon above,
+create a data directory under home `mkdir ~/data` then run collect_camera_data 
+with an appropriate trial name 
+`roslaunch vision collect_camera_data.launch trial_name:=<name of your trial>`
+Your data files can then be accessed at `~/data`

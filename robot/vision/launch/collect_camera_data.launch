@@ -1,4 +1,6 @@
 <launch>
+    <arg name="trial_name"          default="nospec"/>
+
     <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
         <arg name="depth_width"     value="1280"/>
         <arg name="depth_height"    value="720"/>
@@ -13,4 +15,17 @@
         <arg name="enable_infra1" default="false"/>
         <arg name="enable_infra2" default="false"/>
     </include>
+
+    <node pkg="rosbag" type="record" name="record" 
+          args="-o /home/flo/data/realsense_data_$(arg trial_name)
+                /camera/aligned_depth_to_color/camera_info
+                /camera/aligned_depth_to_color/image_raw
+                /camera/color/camera_info
+                /camera/color/image_raw
+                /camera/depth/camera_info
+                /camera/depth/image_rect_raw
+                /camera/extrinsics/depth_to_color
+                /camera/realsense2_camera_manager/parameter_descriptions
+                /camera/realsense2_camera_manager/parameter_updates
+                "/>
 </launch>
