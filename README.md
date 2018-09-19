@@ -4,15 +4,6 @@ This is going to be the master repository for all of the Lil'Flo remote control,
 ## Dependencies
 - ROS
 - pyserial 
-- (actually probably not) [OpenCV3](https://docs.opencv.org/3.4.3/d7/d9f/tutorial_linux_install.html)
-    - `mkdir ~/opencv3 && cd ~/opencv3`
-    - clone both repos
-    - go inside
-    - mkdir build
-    - go inside build
-    - cmake -D OPENCV_EXTRA_MODULES_PATH=/home/flo/opencv_contrib/modules -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D PYTHON3_EXECUTABLE=/usr/bin/python3 ..
-    - make -j4
-    - sudo make install
 - [librealsense - including developer packages](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
 - [ROS Realsense wrapper](https://github.com/intel-ros/realsense)
 - (maybe)[ROS Realsense demos](https://github.com/IntelRealSense/realsense_samples_ros.git)
