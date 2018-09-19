@@ -140,7 +140,8 @@ If you want to tinker with frame sizes and rates, take a look at the supported
 profiles by running `rs-enumerate-devices`. This is also a great way to check 
 whether the device is actually recognized as being USB 3.0. If you find that it 
 is shown as a USB 2 device, unplug the camera and plug it back in. There is a 
-known issue with the stock cable. TODO: replace cable
+known issue with the stock cable where the type C side only works in one direction,
+so if it isn't working, try flipping it over. TODO: replace cable
 TODO: implement unplug replug in code: https://unix.stackexchange.com/questions/234581/disconnect-and-reconnect-usb-port-via-cli
 
 ## Collecting Data
