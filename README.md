@@ -15,7 +15,7 @@ This is going to be the master repository for all of the Lil'Flo remote control,
     - sudo make install
 - [librealsense - including developer packages](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
 - [ROS Realsense wrapper](https://github.com/intel-ros/realsense)
-- (maybe)[ROS Realsense dmos](https://github.com/IntelRealSense/realsense_samples_ros.git)
+- (maybe)[ROS Realsense demos](https://github.com/IntelRealSense/realsense_samples_ros.git)
   (notice that you have not yet installed the cmoplete realsense SDK noted in the 
   middle)
     - you will need to modify one of the cmake files per this: https://github.com/IntelRealSense/realsense_samples_ros/issues/26
@@ -130,3 +130,17 @@ to run `cd ~/catkin_ws && catkin_make` on the robot machine.
 
 ## Testing hardware
 ### D435
+Once everythign is installed, plugin the camera and run 
+`roslaunch realsense2_camera rs_aligned_depth.launch` Then open RVIZ on your dev
+computer and you can
+subscribe to the feed. You can use `rosrun rqt_reconfigure rqt_reconfigure` to 
+change some basic parameters. 
+
+To visualize a pointcloud, run `roslaunch vision pointcloud_demo_cam.launch` on
+the camera computer and `roslaunch vision pointcloud_demo_viz.launch` on your
+dev computer. 
+
+You can also test with the more standardized rgbd style topics by running 
+`roslaunch realsense2_camera rs_rgbd.launch` and looking at the results in RViZ
+where you can add a point cloud. Be sure to set the "Fixed Frame" to be the
+camera link.
