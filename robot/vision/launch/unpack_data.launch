@@ -2,9 +2,19 @@
     <arg name="source"/>
     <arg name="out_name"/>
 
-    <node pkg="rosbag" type="play" name="rosbag" required="true" args="$(arg source)"/>
-    <node name="extract" pkg="image_view" type="video_recorder" respawn="false" 
-          required="true" output="screen" args="filename:=/home/flo/data/$(arg out_name)_color">
+    <node pkg="rosbag" type="play" name="rosbag1" required="true" args="$(arg source)"/>
+
+    <node name="extract_color" pkg="image_view" type="video_recorder" respawn="false" 
+          required="true" output="screen">
+          <param name="filename" value="/home/flo/data/$(arg out_name)_color.avi"/>
+          <param name="fps" value="30"/>
         <remap from="image" to="/camera/color/image_raw"/>
+    </node>
+
+    <node name="extract_depth" pkg="image_view" type="video_recorder" respawn="false" 
+          required="true" output="screen">
+          <param name="filename" value="/home/flo/data/$(arg out_name)_depth.avi"/>
+          <param name="fps" value="30"/>
+        <remap from="image" to="/camera/depth/image_rect_raw"/>
     </node>
 </launch>

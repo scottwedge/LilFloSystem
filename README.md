@@ -152,5 +152,5 @@ with an appropriate trial name
 `roslaunch vision collect_camera_data.launch trial_name:=<name of your trial>`
 Your data files can then be accessed at `~/data`
 
-To bring the data to your dev folder, you can use scp like this:
+To bring the data to your dev folder, you can use scp like this: 
 `scp flo@<flo ip>:/home/flo/data/<file of interest> <wherever on your dev computer you want it>`
