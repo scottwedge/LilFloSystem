@@ -17,7 +17,16 @@ class FaceComs(object):
         """Construct node, open serial port, prep to receive commands"""
         rospy.init_node('face_com_manager')
         self.port = rospy.get_param('port', '/dev/flo_face')
-        self.coms = SerialCom(self.port, self.data_handler)
+        con_rate = rospy.Rate(0.2)
+        not_connected = True
+        while not_connected:
+            try:
+                self.coms = SerialCom(self.port, self.data_handler)
+                not_connected = False
+            except SeerialException as err:
+                rospy.logerr('could not connect to face, trying again in a moment.')
+                con_rate.sleep()
+
         self.past_state = FaceState()
         self.command_receipt = rospy.Subscriber(
             'face_state', FaceState, self.new_command)
