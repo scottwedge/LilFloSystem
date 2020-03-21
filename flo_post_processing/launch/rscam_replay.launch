@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="rosbag_filename" value="~/Downloads/flo_recording_2020-02-14-13-24-20_0.bag"/>
+  </include>
+</launch>
