@@ -1,4 +1,5 @@
 # LilFloSystem
+
 ![Check Syntax](https://github.com/Rehab-Robotics-Lab/LilFloSystem/workflows/Check%20Syntax/badge.svg)
 ![Install & Build](https://github.com/Rehab-Robotics-Lab/LilFloSystem/workflows/Install%20&%20Build/badge.svg)
 
@@ -8,14 +9,20 @@ control, messaging, etc.
 In this README you will find everything you need to work with and develop on the
 Lil'Flo platform.
 
-You may be interested in [papers and posters on the project](https://michaelsobrepera.com/tags/flo)
+You may be interested in
+[papers and posters on the project](https://michaelsobrepera.com/tags/flo)
 
 ## License:
-Currently all code, documentation, other content, and ideas in this repository is available for you to view. 
-If you would like to use the code, documentation, other content, or ideas in this repository, please reach out to mjsobrep@seas.upenn.edu. 
+
+Currently all code, documentation, other content, and ideas in this repository
+is available for you to view. If you would like to use the code, documentation,
+other content, or ideas in this repository, please reach out to
+mjsobrep@seas.upenn.edu.
 
 ### Why so restrictive?
-We are waiting on approvals from the owners of the repository (The University of Pennsylvania) to approve a less restrictive license.
+
+We are waiting on approvals from the owners of the repository (The University of
+Pennsylvania) to approve a less restrictive license.
 
 ## Contents
 
@@ -193,7 +200,8 @@ Some helpful commands (you will need to install `net-tools` for some):
 7. Under DHCP set the range to 10.42.0.100 - 10.42.0.199
 8. Under IP & MAC binding, set ARP Binding to be enabled
 9. Click into the ARP List and select the nuc, set it to be bound on 10.42.0.189
-10. Under DHCP/Address Reservation, add the MAC and IP address that you set to bind
+10. Under DHCP/Address Reservation, add the MAC and IP address that you set to
+    bind
 11. click under system tools and change the password
 12. connect everything up.
 
@@ -205,7 +213,8 @@ It also makes sense to setup for tethered sharing, in the [old way](#old-way):
 4. Plug in cable
 5. Rock and roll
 
-When you enter somewhere new, you will need to connect to the local network. TO do this:
+When you enter somewhere new, you will need to connect to the local network. TO
+do this:
 
 1. Turn on the router
 2. navigate to 10.42.0.1
@@ -213,19 +222,20 @@ When you enter somewhere new, you will need to connect to the local network. TO 
 
 Some thoughts on this:
 
-- Using 5GHz gives better bandwidth, but that isn't always what you want.
-  2.4GHz gives better range. So you might want to use 2.4 GHz instead.
-  To do that, just name the 5ghz connection something else.
-- Using the network share means the chip is doing extra. It might be faster/stronger
-  if it came off of the ethernet.
-- The router can be placed between the robot and laptop, either using wifi or a cable.
+- Using 5GHz gives better bandwidth, but that isn't always what you want. 2.4GHz
+  gives better range. So you might want to use 2.4 GHz instead. To do that, just
+  name the 5ghz connection something else.
+- Using the network share means the chip is doing extra. It might be
+  faster/stronger if it came off of the ethernet.
+- The router can be placed between the robot and laptop, either using wifi or a
+  cable.
 
 #### Old Way (Router hooked up through ethernet)
 
-You will need a router to get it all working. There is a Cisco Linksys E1200 that we are
-using. Plug in one of the switching Ethernet ports to the port on your development computer.
-Note for Ubuntu 18 you may need to run `nm-connnection-editor`.
-Setup with:
+You will need a router to get it all working. There is a Cisco Linksys E1200
+that we are using. Plug in one of the switching Ethernet ports to the port on
+your development computer. Note for Ubuntu 18 you may need to run
+`nm-connnection-editor`. Setup with:
 
 - SSID: flo-net
 - Broadcasting: off
@@ -254,9 +264,9 @@ router at the beginning from the nuc on the robot
 You will now need to setup SSH Keys. Just follow
 [this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804)
 
-You will probably also want to add the flo robot to your hosts list to make life easier.
-To do that: edit your hosts file: `sudo nvim /etc/hosts` to have the nuc listed.
-Add this: `10.42.0.189 flo-nuc`
+You will probably also want to add the flo robot to your hosts list to make life
+easier. To do that: edit your hosts file: `sudo nvim /etc/hosts` to have the nuc
+listed. Add this: `10.42.0.189 flo-nuc`
 
 You can also create a function in your bashrc that allows easier sshing in:
 
@@ -290,22 +300,20 @@ function ssh-flo {
 Setup
 [UDEV Rules to make the face always have the same name](https://unix.stackexchange.com/a/183492):
 
-    1. Run `python -m serial.tools.list_ports` to see which ports
-       are connected. Then plug in the device and run it again,
-       the new port is the one which you are connected to
-    2. Run `udevadm info --name=/dev/ttyACM0 --attribute-walk`
-       with the name matching the port which you found in the
-       previous step. Find the device with manufacturer
-       . Note the idVendor, id Product, and serial
-       number.
-    3. Edit file `/etc/udev/rules.d/99-usb-serial.rules` (create if
-       necessary) to have:
-       `SUBSYSTEM=="tty", ATTRS{idVendor}=="XXXX", ATTRS{idProduct}=="XXXX", ATTRS{serial}=="XXXXXXX", SYMLINK+="flo_face", MODE="0666"`
+1. Run `python -m serial.tools.list_ports` to see which ports are connected.
+   Then plug in the device and run it again, the new port is the one which you
+   are connected to
+2. Run `udevadm info --name=/dev/ttyACM0 --attribute-walk` with the name
+   matching the port which you found in the previous step. Find the device with
+   manufacturer . Note the idVendor, id Product, and serial number.
+3. Edit file `/etc/udev/rules.d/99-usb-serial.rules` (create if necessary) to
+   have:
+   `SUBSYSTEM=="tty", ATTRS{idVendor}=="XXXX", ATTRS{idProduct}=="XXXX", ATTRS{serial}=="XXXXXXX", SYMLINK+="flo_face", MODE="0666"`
 
-        `SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="bolide"`
+   `SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="bolide"`
 
-    4. Load the rules: `sudo udevadm trigger`
-    5. You can check that it worked by running: `ls -l /dev/flo_face`
+4. Load the rules: `sudo udevadm trigger`
+5. You can check that it worked by running: `ls -l /dev/flo_face`
 
 The naming scheme ends up like this:
 
@@ -445,20 +453,20 @@ Run: `rqt -s kobuki_dashboard`.
 Once the robot has been used, you will need to get data off of it. There are a
 few options for this:
 
-- Transfer to external media, this is easy and fast, SSH into the robot,
-  plug storage into the front USB3 ports, and use the `mv`
-  (move) or `cp` (copy) commands to move things to the usb drive. You should be
-  able to find your USB drive in the `/media/nuc-admin` folder. The cp command
-  does not provide feedback, an alternative is to use rsync:
+- Transfer to external media, this is easy and fast, SSH into the robot, plug
+  storage into the front USB3 ports, and use the `mv` (move) or `cp` (copy)
+  commands to move things to the usb drive. You should be able to find your USB
+  drive in the `/media/nuc-admin` folder. The cp command does not provide
+  feedback, an alternative is to use rsync:
   `rsync -ah --progress <source> <destination>`
 - Use SCP, this is a pain, not at all worth it
 - Use an FTP gui, this works quite well but is limited by network speed, in your
   FTP gui, set the address as `ftp://flo-nuc` and then copy the data over the
   network.
 
-All of the data should be stored in the `/home/nuc-admin/flo_data` folder.
-There will be two types of files, rosbag files, 1 per minute of operation,
-and parameter dumps, one from startup and one from shutdown.
+All of the data should be stored in the `/home/nuc-admin/flo_data` folder. There
+will be two types of files, rosbag files, 1 per minute of operation, and
+parameter dumps, one from startup and one from shutdown.
 
 ## Things that may break: {#break}
 
